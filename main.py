@@ -1,9 +1,9 @@
 import os
-import requests  # noqa We are just importing this to prove the dependency installed correctly
+import requests
 
 
-# Set the output value by writing to the outputs in the 
-# GITHUB_OUTPUT Environment File 
+# Set the output value by writing to the outputs in the
+# GITHUB_OUTPUT Environment File
 def set_github_action_output(output_name, output_value):
     f = open(os.path.abspath(os.environ["GITHUB_OUTPUT"]), "a")
     f.write(f'{output_name}={output_value}')
