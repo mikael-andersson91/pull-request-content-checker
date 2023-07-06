@@ -5,7 +5,7 @@ import requests  # noqa We are just importing this to prove the dependency insta
 #  https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter
 def set_github_action_output(output_name, output_value):
     f = open(os.path.abspath(os.environ["GITHUB_OUTPUT"]), "a")
-    f.write(f'myOutput={my_output}')
+    f.write(f'{output_name}={my_output}')
     f.close()    
 
 def main():
