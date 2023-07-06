@@ -7,7 +7,7 @@ def main():
 
     my_output = f"Hello {my_input}"
 
-    print(f'"myOutput={my_output}" >> "$GITHUB_OUTPUT"')
+    print(f'echo "myOutput={my_output}" >> "$GITHUB_OUTPUT"')
 
 
 if __name__ == "__main__":
