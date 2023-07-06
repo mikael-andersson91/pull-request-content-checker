@@ -1,5 +1,4 @@
 import os
-import requests
 
 
 # Set the output value by writing to the outputs in the
