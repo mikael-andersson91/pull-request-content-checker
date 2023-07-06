@@ -9,10 +9,9 @@ def main():
 
     for line in os.path.abspath(os.environ["GITHUB_OUTPUT"]):
         print(line)    
-
+    print(os.path.abspath(os.environ["GITHUB_OUTPUT"]).read()) 
     print(f'echo "myOutput={my_output}" >> "{os.path.abspath(os.environ["GITHUB_OUTPUT"])}"')
-    for line in os.path.abspath(os.environ["GITHUB_OUTPUT"]):
-        print(line)    
+    print(os.path.abspath(os.environ["GITHUB_OUTPUT"]).read()) 
 
 
 if __name__ == "__main__":
