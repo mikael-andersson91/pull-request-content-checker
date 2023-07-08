@@ -18,7 +18,8 @@ def main():
     event_data = json.load(f)
     f.close()
 
-    print(event_data)
+    print(event_data["pull_request"]["body"])
+    print(event_data["pull_request"]["title"])
 
     set_github_action_output('myOutput', my_output)
 
