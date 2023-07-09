@@ -41,11 +41,11 @@ def main():
 
     if pr_body_similarity_score > max_pull_request_description_match:
         print(
-            f"{pr_body_similarity_score} > {max_pull_request_description_match}"
+            f"{pr_body_similarity_score} exceeds max similarity score"
             )
     else:
         print(
-            f"{pr_body_similarity_score} < {max_pull_request_description_match}"
+            f"{pr_body_similarity_score} is below max similarity score"
             )
     set_github_action_output('myOutput', pr_body_similarity_score)
 
