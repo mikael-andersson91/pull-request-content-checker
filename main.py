@@ -8,7 +8,7 @@ def set_github_action_output(output_name, output_value):
     f = open(os.path.abspath(os.environ["GITHUB_OUTPUT"]), "a")
     f.write(f'{output_name}={output_value}')
     f.close()
-
+    print(f'Output {output_name}={output_value}')
 
 
 def main():
@@ -22,12 +22,16 @@ def main():
     event_data = json.load(f)
     f.close()
 
+    pr_filestream = open(pr_template_path)
+    pr_template_contents = pr_filestream.read().trim()
+    pr_filestream.close()
+
     pr_body = event_data["pull_request"]["body"].strip()
-    pr_title = print(event_data["pull_request"]["title"]).strip()
+    pr_title = event_data["pull_request"]["title"].strip()
     print(pr_body)
     print(pr_title)
 
-    pr_body_similarity_score = difflib.SequenceMatcher(None, pr_body, "test").ratio()
+    pr_body_similarity_score = difflib.SequenceMatcher(None, pr_body, pr_template_contents).ratio()
 
     set_github_action_output('myOutput', pr_body_similarity_score)
 
