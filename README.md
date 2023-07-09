@@ -1,55 +1,37 @@
-# Python Container Action Template
+# Pull Request Content Checker
 
 [![Action Template](https://img.shields.io/badge/Action%20Template-Python%20Container%20Action-blue.svg?colorA=24292e&colorB=0366d6&style=flat&longCache=true&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAM6wAADOsB5dZE0gAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAERSURBVCiRhZG/SsMxFEZPfsVJ61jbxaF0cRQRcRJ9hlYn30IHN/+9iquDCOIsblIrOjqKgy5aKoJQj4O3EEtbPwhJbr6Te28CmdSKeqzeqr0YbfVIrTBKakvtOl5dtTkK+v4HfA9PEyBFCY9AGVgCBLaBp1jPAyfAJ/AAdIEG0dNAiyP7+K1qIfMdonZic6+WJoBJvQlvuwDqcXadUuqPA1NKAlexbRTAIMvMOCjTbMwl1LtI/6KWJ5Q6rT6Ht1MA58AX8Apcqqt5r2qhrgAXQC3CZ6i1+KMd9TRu3MvA3aH/fFPnBodb6oe6HM8+lYHrGdRXW8M9bMZtPXUji69lmf5Cmamq7quNLFZXD9Rq7v0Bpc1o/tp0fisAAAAASUVORK5CYII=)](https://github.com/jacobtomlinson/python-container-action)
-[![Lint](https://github.com/mikael-andersson91/python-experimental-action/actions/workflows/python.yml/badge.svg)](https://github.com/mikael-andersson91/python-experimental-action/actions/workflows/python.yml)
-[![Integration Test](https://github.com/mikael-andersson91/python-experimental-action/actions/workflows/integration.yml/badge.svg)](https://github.com/mikael-andersson91/python-experimental-action/actions/workflows/integration.yml)
 
-This is a template for creating GitHub actions and contains a small Python application which will be built into a minimal [Container Action](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-a-docker-container-action). Our final container from this template is ~50MB, yours may be a little bigger once you add some code. If you want something smaller check out my [go-container-action template](https://github.com/jacobtomlinson/go-container-action/actions).
-
-In `main.py` you will find a small example of accessing Action inputs and returning Action outputs. For more information on communicating with the workflow see the [development tools for GitHub Actions](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/development-tools-for-github-actions).
-
-> 🏁 To get started, click the `Use this template` button on this repository [which will create a new repository based on this template](https://github.blog/2019-06-06-generate-new-repositories-with-repository-templates/).
+This is an action for validating that a pull request body is not empty and has been modified from the given template to a specific degree. The action takes a value between 0-1 as an indicator for how similar the pull request body is allowed to be to the template in order to ensure that the creator of a pull request has actually filled out the body/description with content. The action fails if the pull request body is empty or not enough has been changed from the pull request template
 
 ## Usage
-
-Describe how to use your action here.
 
 ### Example workflow
 
 ```yaml
 name: My Workflow
-on: [push, pull_request]
+on: [pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v3
     - name: Run action
-
-      # Put your action repo here
-      uses: me/myaction@master
-
-      # Put an example of your mandatory inputs here
-      with:
-        myInput: world
+      uses: mikael-andersson91/pull-request-content-checker@v0
 ```
 
 ### Inputs
 
 | Input                                             | Description                                        |
 |------------------------------------------------------|-----------------------------------------------|
-| `myInput`  | An example mandatory input    |
-| `anotherInput` _(optional)_  | An example optional input    |
+| `pull_request_template_path`  | Path to the pull request template used by the repository (defailt value: .github/pull_request_template.md)    |
+| `max_pull_request_description_match  | Value between 0-1 to indicate how similar the pull request body/description is allowed to be with the template (default value: 0.7) |
 
 ### Outputs
 
 | Output                                             | Description                                        |
 |------------------------------------------------------|-----------------------------------------------|
-| `myOutput`  | An example output (returns 'Hello world')    |
-
-## Examples
-
-> NOTE: People ❤️ cut and paste examples. Be generous with them!
+| `pull_request_body_match`  |  Value between 0-1 to indicate how much of the pull request body matches the pull request template   |
 
 ### Using the optional input
 
@@ -57,7 +39,7 @@ This is how to use the optional input.
 
 ```yaml
 with:
-  myInput: world
+  pull_request_template_path: world
   anotherInput: optional
 ```
 
@@ -67,19 +49,19 @@ Show people how to use your outputs in another action.
 
 ```yaml
 steps:
-- uses: actions/checkout@master
-- name: Run action
-  id: myaction
-
-  # Put your action name here
-  uses: me/myaction@master
-
-  # Put an example of your mandatory arguments here
+- uses: actions/checkout@v3
   with:
-    myInput: world
+    fetch-depth: 0
 
-# Put an example of using your outputs here
+- name: Run action
+  id: pr_content_check
+  uses: mikael-andersson91/pull-request-content-checker@v0
+  with:
+    pull_request_template_path: ".github/pull_request_template.md"
+    max_pull_request_description_match: 0.5
+
+# Example outputs, print how much of a match in pr body compared to pr template (value between 0-1) 
 - name: Check outputs
     run: |
-    echo "Outputs - ${{ steps.myaction.outputs.myOutput }}"
+    echo "Outputs - ${{ steps.pr_content_check.outputs.pull_request_body_match }}"
 ```

@@ -1,5 +1,5 @@
-name: "Python Container Action Template"
-description: "Get started with Python Container actions"
+name: "Pull Request Content Checker"
+description: "GitHub Container Action built with Python, validates that a pull request body was modified from the original template and is not empty"
 author: "Mikael Andersson"
 inputs:
   pull_request_template_path:
