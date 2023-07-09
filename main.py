@@ -12,6 +12,12 @@ def set_github_action_output(output_name, output_value):
     print(f'Output {output_name}={output_value}')
 
 
+def is_pr_body_empty(pr_body):
+    print(f'Pull request body: {pr_body}')
+    if pr_body.isspace():
+        raise Exception("The pull request body is empty")
+
+
 def main():
     pr_template_path = os.environ["INPUT_PULL_REQUEST_TEMPLATE_PATH"]
     max_pull_request_description_match = float(
@@ -25,6 +31,11 @@ def main():
     event_data = json.load(f)
     f.close()
 
+    pr_body = event_data["pull_request"]["body"].strip()
+    pr_title = event_data["pull_request"]["title"].strip()
+
+    is_pr_body_empty(pr_body)
+
     pr_filestream = open(pr_template_path)
     pr_template_contents = pr_filestream.read().strip()
     pr_filestream.close()
@@ -35,7 +46,7 @@ def main():
     print(pr_title)
 
     pr_body_similarity_score = difflib.SequenceMatcher(
-        None, 
+        None,
         pr_body,
         pr_template_contents).ratio()
 
