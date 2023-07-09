@@ -2,9 +2,12 @@ name: "Python Container Action Template"
 description: "Get started with Python Container actions"
 author: "Mikael Andersson"
 inputs:
-  myInput:
-    description: "Input to use"
-    default: "world"
+  pull_request_template_path:
+    description: "Path to the pull request template used by the repository"
+    default: ".github/PULL_REQUEST_TEMPLATE.md"
+  max_pull_request_description_match:
+    description: "Maximum value of percentage match (0-1) between body and template before the action fails"
+    default: "0.7"
 outputs:
   myOutput:
     description: "Output from the action"
