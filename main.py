@@ -2,6 +2,7 @@ import os
 import json
 import difflib
 
+
 # Set the output value by writing to the outputs in the
 # GITHUB_OUTPUT Environment File
 def set_github_action_output(output_name, output_value):
@@ -9,7 +10,6 @@ def set_github_action_output(output_name, output_value):
     f.write(f'{output_name}={output_value}')
     f.close()
     print(f'Output {output_name}={output_value}')
-
 
 
 def main():
