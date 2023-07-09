@@ -18,9 +18,7 @@ def main():
         os.environ["INPUT_MAX_PULL_REQUEST_DESCRIPTION_MATCH"]
         )
     print(f'pr_template_path: {pr_template_path}')
-    print(
-        f'max_pull_request_description_match: {max_pull_request_description_match}'
-        )
+    print(f'max body match: {max_pull_request_description_match}')
 
     print(os.environ["GITHUB_EVENT_NAME"])
     f = open(os.environ["GITHUB_EVENT_PATH"])
@@ -43,11 +41,11 @@ def main():
 
     if pr_body_similarity_score > max_pull_request_description_match:
         print(
-            f"{pr_body_similarity_score} was bigger than {max_pull_request_description_match}"
+            f"{pr_body_similarity_score} > {max_pull_request_description_match}"
             )
     else:
         print(
-            f"{pr_body_similarity_score} was smaller than {max_pull_request_description_match}"
+            f"{pr_body_similarity_score} < {max_pull_request_description_match}"
             )
     set_github_action_output('myOutput', pr_body_similarity_score)
 
