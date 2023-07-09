@@ -14,10 +14,12 @@ def set_github_action_output(output_name, output_value):
 
 def main():
     pr_template_path = os.environ["INPUT_PULL_REQUEST_TEMPLATE_PATH"]
-    max_pull_request_description_match = float(os.environ["INPUT_MAX_PULL_REQUEST_DESCRIPTION_MATCH"])
+    max_pull_request_description_match = float(
+        os.environ["INPUT_MAX_PULL_REQUEST_DESCRIPTION_MATCH"]
+        )
     print(f'pr_template_path: {pr_template_path}')
     print(f'max_pull_request_description_match: {max_pull_request_description_match}')
-    
+
     print(os.environ["GITHUB_EVENT_NAME"])
     f = open(os.environ["GITHUB_EVENT_PATH"])
     event_data = json.load(f)
@@ -32,7 +34,10 @@ def main():
     print(pr_body)
     print(pr_title)
 
-    pr_body_similarity_score = difflib.SequenceMatcher(None, pr_body, pr_template_contents).ratio()
+    pr_body_similarity_score = difflib.SequenceMatcher(
+        None
+        , pr_body
+        , pr_template_contents).ratio()
 
     if pr_body_similarity_score > max_pull_request_description_match:
         print(f"{pr_body_similarity_score} was bigger than {max_pull_request_description_match}")
