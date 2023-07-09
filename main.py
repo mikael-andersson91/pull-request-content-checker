@@ -35,14 +35,18 @@ def main():
     print(pr_title)
 
     pr_body_similarity_score = difflib.SequenceMatcher(
-        None
-        , pr_body
-        , pr_template_contents).ratio()
+        None, 
+        pr_body,
+        pr_template_contents).ratio()
 
     if pr_body_similarity_score > max_pull_request_description_match:
-        print(f"{pr_body_similarity_score} was bigger than {max_pull_request_description_match}")
+        print(
+            f"{pr_body_similarity_score} was bigger than {max_pull_request_description_match}"
+            )
     else:
-        print(f"{pr_body_similarity_score} was smaller than {max_pull_request_description_match}")
+        print(
+            f"{pr_body_similarity_score} was smaller than {max_pull_request_description_match}"
+            )
     set_github_action_output('myOutput', pr_body_similarity_score)
 
 
