@@ -4,7 +4,7 @@ author: "Mikael Andersson"
 inputs:
   pull_request_template_path:
     description: "Path to the pull request template used by the repository"
-    default: ".github/PULL_REQUEST_TEMPLATE.md"
+    default: ".github/pull_request_template.md"
   max_pull_request_description_match:
     description: "Maximum value of percentage match (0-1) between body and template before the action fails"
     default: "0.7"
