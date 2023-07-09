@@ -24,7 +24,7 @@ def main():
     f.close()
 
     pr_filestream = open(pr_template_path)
-    pr_template_contents = pr_filestream.read().trim()
+    pr_template_contents = pr_filestream.read().strip()
     pr_filestream.close()
 
     pr_body = event_data["pull_request"]["body"].strip()
