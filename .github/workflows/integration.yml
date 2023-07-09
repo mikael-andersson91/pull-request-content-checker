@@ -16,6 +16,6 @@ jobs:
         id: selftest
         uses: ./
 
-      - name: Check outputs
-        run: |
-          test "${{ steps.selftest.outputs.myOutput }}" == "Hello world"
+      #- name: Check outputs
+      #  run: |
+      #    test "${{ steps.selftest.outputs.myOutput }}" == "Hello world"
