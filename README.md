@@ -24,8 +24,8 @@ jobs:
 
 | Input                                             | Description                                        |
 |------------------------------------------------------|-----------------------------------------------|
-| `myInput`  | An example mandatory input    |
-| `anotherInput` _(optional)_  | An example optional input    |
+| `pull_request_template_path`  | Path to the pull request template used by the repository (defailt value: .github/pull_request_template.md)    |
+| `max_pull_request_description_match  | Value between 0-1 to indicate how similar the pull request body/description is allowed to be with the template (default value: 0.7) |
 
 ### Outputs
 
