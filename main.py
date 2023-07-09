@@ -25,7 +25,8 @@ def is_pr_body_below_similarity_score(pr_body,
         None,
         pr_body,
         pr_template_contents).ratio()
-    set_github_action_output('myOutput', pr_body_similarity_score)
+    set_github_action_output('pull_request_body_match',
+                             pr_body_similarity_score)
     if pr_body_similarity_score > max_pull_request_similarity_score:
         print(
             f"{pr_body_similarity_score} exceeds max similarity score"
@@ -55,8 +56,6 @@ def main():
     pr_body = event_data["pull_request"]["body"].strip()
     pr_title = event_data["pull_request"]["title"].strip()
 
-    is_pr_body_empty(pr_body)
-
     pr_filestream = open(pr_template_path)
     pr_template_contents = pr_filestream.read().strip()
     pr_filestream.close()
@@ -65,6 +64,7 @@ def main():
     pr_title = event_data["pull_request"]["title"].strip()
     print(pr_body)
     print(pr_title)
+    is_pr_body_empty(pr_body)
     is_pr_body_below_similarity_score(pr_body,
                                       pr_template_contents,
                                       max_pull_request_description_match)
