@@ -11,6 +11,7 @@ def set_github_action_output(output_name, output_value):
     print(f'Output {output_name}={output_value}')
 
 
+
 def main():
     pr_template_path = os.environ["INPUT_PULL_REQUEST_TEMPLATE_PATH"]
     max_pull_request_description_match = os.environ["INPUT_MAX_PULL_REQUEST_DESCRIPTION_MATCH"]
