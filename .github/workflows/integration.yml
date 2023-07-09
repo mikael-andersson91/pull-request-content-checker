@@ -1,7 +1,5 @@
 name: Integration Test
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
 jobs:
@@ -15,7 +13,3 @@ jobs:
       - name: Self test
         id: selftest
         uses: ./
-
-      #- name: Check outputs
-      #  run: |
-      #    test "${{ steps.selftest.outputs.myOutput }}" == "Hello world"
