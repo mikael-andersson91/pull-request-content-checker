@@ -3,6 +3,8 @@ name: Tag and Release
 on:
   push: 
     branches: master
+permissions:
+  write-all
 
 jobs:
 
