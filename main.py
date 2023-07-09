@@ -18,7 +18,9 @@ def main():
         os.environ["INPUT_MAX_PULL_REQUEST_DESCRIPTION_MATCH"]
         )
     print(f'pr_template_path: {pr_template_path}')
-    print(f'max_pull_request_description_match: {max_pull_request_description_match}')
+    print(
+        f'max_pull_request_description_match: {max_pull_request_description_match}'
+        )
 
     print(os.environ["GITHUB_EVENT_NAME"])
     f = open(os.environ["GITHUB_EVENT_PATH"])
