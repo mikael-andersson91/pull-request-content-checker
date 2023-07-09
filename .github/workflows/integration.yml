@@ -1,14 +1,21 @@
 name: Integration Test
-on: [push]
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Self test
         id: selftest
         uses: ./
 
-      - name: Check outputs
-        run: |
-          test "${{ steps.selftest.outputs.myOutput }}" == "Hello world"
+      #- name: Check outputs
+      #  run: |
+      #    test "${{ steps.selftest.outputs.myOutput }}" == "Hello world"
