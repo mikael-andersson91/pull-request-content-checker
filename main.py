@@ -8,19 +8,18 @@ def get_pull_request(pull_request_number, github_token):
     api_url = os.environ["GITHUB_API_URL"]
     github_repository = os.environ["GITHUB_REPOSITORY"]
     headers = {
-        'Accept':'application/vnd.github+json'
-        ,'Authorization':f'Bearer {github_token}'
-        ,'X-GitHub-Api-Version':'2022-11-28' 
+        'Accept': 'application/vnd.github+json',
+        'Authorization': f'Bearer {github_token}',
+        'X-GitHub-Api-Version': '2022-11-28'
         }
     r=requests.get(
-        f'{api_url}/repos/{github_repository}/pulls/{pull_request_number}'
-        ,headers=headers
+        f'{api_url}/repos/{github_repository}/pulls/{pull_request_number}',
+        headers=headers
         )
     print(f'Geting pull request on {r.url}')
     # Throw exception if not 200
     r.raise_for_status()
     return json.loads(r.text, strict=False)
-
 
 
 # Set the output value by writing to the outputs in the
@@ -75,8 +74,6 @@ def main():
     f.close()
 
     pull_request = get_pull_request(event_data["number"], github_token)
-    print(pull_request)
-    print(list(pull_request.keys()))
     pr_title = pull_request['title'].strip()
     pr_body = pull_request['body'].strip()
 
