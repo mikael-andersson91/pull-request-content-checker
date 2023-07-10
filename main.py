@@ -20,7 +20,8 @@ def get_pull_request(pull_request_number, github_token):
     # Throw exception if not 200
     r.raise_for_status()
     print(r.status_code)
-    return json.loads(r.text)
+    print(r.text)
+    return json.loads(r.text, strict=False)
 
 
 
