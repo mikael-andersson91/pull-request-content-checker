@@ -12,9 +12,9 @@ def get_pull_request(pull_request_number, github_token):
         'Authorization': f'Bearer {github_token}',
         'X-GitHub-Api-Version': '2022-11-28'
         }
-    r=requests.get(
+    r = requests.get(
         f'{api_url}/repos/{github_repository}/pulls/{pull_request_number}',
-        headers = headers
+        headers=headers
         )
     print(f'Geting pull request on {r.url}')
     # Throw exception if not 200
