@@ -12,14 +12,15 @@ def get_pull_request(pull_request_number, github_token):
         ,'Authorization':f'Bearer {github_token}'
         ,'X-GitHub-Api-Version':'2022-11-28' 
         }
+    print(f'Geting pull request on {r.url}')
     r=requests.get(
         f'{api_url}/repos/{github_repository}/pulls/{pull_request_number}'
         ,headers=headers
         )
-    print(r.content)
+    # Throw exception if not 200
+    r.raise_for_status()
     print(r.status_code)
-    print(f'Geting pull request on {r.url}')
-    return json.loads(r.content)
+    return json.loads(r.text)
 
 
 
@@ -82,8 +83,6 @@ def main():
     pr_template_contents = pr_filestream.read().strip()
     pr_filestream.close()
 
-    pr_body = event_data["pull_request"]["body"].strip()
-    pr_title = event_data["pull_request"]["title"].strip()
     print(pr_body)
     print(pr_title)
     is_pr_body_empty(pr_body)
