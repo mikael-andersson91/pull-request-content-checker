@@ -12,7 +12,10 @@ def get_pull_request(pull_request_number, github_token):
         ,'Authorization':f'Bearer {github_token}'
         ,'X-GitHub-Api-Version':'2022-11-28' 
         }
-    r=requests.get(f'{api_url}/{github_repository}/pulls/{pull_request_number}',headers=headers)
+    r=requests.get(
+        f'{api_url}/repos/{github_repository}/pulls/{pull_request_number}'
+        ,headers=headers
+        )
     print(r.content)
     print(r.status_code)
     print(f'Geting pull request on {r.url}')
