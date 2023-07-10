@@ -18,6 +18,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Run action
       uses: mikael-andersson91/pull-request-content-checker@v0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Inputs
@@ -26,6 +28,7 @@ jobs:
 |------------------------------------------------------|-----------------------------------------------|
 | `pull_request_template_path`  | Path to the pull request template used by the repository (defailt value: .github/pull_request_template.md)    |
 | `max_pull_request_description_match`  | Value between 0-1 to indicate how similar the pull request body/description is allowed to be with the template (default value: 0.7) |
+| `github_Token`  | GitHub Token required for API requests to get most up-to-date pull request details |
 
 ### Outputs
 
@@ -41,6 +44,7 @@ This is how to use the optional input.
 with:
   pull_request_template_path: .github/pull_request_template.md
   max_pull_request_description_match: 0.5
+  github_token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ### Using outputs
@@ -59,6 +63,7 @@ steps:
   with:
     pull_request_template_path: ".github/pull_request_template.md"
     max_pull_request_description_match: 0.5
+    github_token: ${{ secrets.GITHUB_TOKEN }}
 
 # Example outputs, print how much of a match in pr body compared to pr template (value between 0-1) 
 - name: Check outputs
