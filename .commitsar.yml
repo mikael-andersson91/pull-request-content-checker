@@ -2,6 +2,6 @@ version: 1
 verbose: true
 commits:
   strict: true
-  disabled: false
+  disabled: true
 pull_request:
   conventional: true
