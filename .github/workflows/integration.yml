@@ -13,3 +13,5 @@ jobs:
       - name: Self test
         id: selftest
         uses: ./
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

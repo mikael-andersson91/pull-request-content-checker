@@ -1,6 +1,20 @@
 import os
 import json
 import difflib
+import requests
+
+
+def get_pull_request(pull_request_number, github_token):
+    api_url = os.environ["GITHUB_API_URL"]
+    github_repository = os.environ["GITHUB_REPOSITORY"]
+    headers = {
+        'Accept':'application/vnd.github+json'
+        ,'Authorization':f'Bearer {github_token}'
+        ,'X-GitHub-Api-Version':'2022-11-28' 
+        }
+    r=requests.get(f'{api_url}/{github_repository}/pulls/{pull_request_number}',headers=headers)
+    return json.loads(r.content)
+
 
 
 # Set the output value by writing to the outputs in the
@@ -45,6 +59,7 @@ def main():
     max_pull_request_description_match = float(
         os.environ["INPUT_MAX_PULL_REQUEST_DESCRIPTION_MATCH"]
         )
+    github_token = os.environ["INPUT_GITHUB_TOKEN"]
     print(f'pr_template_path: {pr_template_path}')
     print(f'max body match: {max_pull_request_description_match}')
 
@@ -53,8 +68,9 @@ def main():
     event_data = json.load(f)
     f.close()
 
-    pr_body = event_data["pull_request"]["body"].strip()
-    pr_title = event_data["pull_request"]["title"].strip()
+    pull_request = get_pull_request(event_data["number"], github_token)
+    pr_title = pull_request["title"].strip()
+    pr_body = pull_request["description"].strip()
 
     pr_filestream = open(pr_template_path)
     pr_template_contents = pr_filestream.read().strip()

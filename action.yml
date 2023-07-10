@@ -8,6 +8,8 @@ inputs:
   max_pull_request_description_match:
     description: "Maximum value of percentage match (0-1) between body and template before the action fails"
     default: "0.7"
+  github_token:
+    description: "GitHub Token used for retrieving pull request details in API requests (${{ secrets.GITHUB_TOKEN }} is recommended)"
 outputs:
   pull_request_body_match:
     description: "Output to indicate the similarity with the pull request template (score between 0-1)"
