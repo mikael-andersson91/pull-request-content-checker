@@ -78,7 +78,7 @@ def main():
     print(pull_request)
     print(list(pull_request.keys()))
     pr_title = pull_request['title'].strip()
-    pr_body = pull_request['description'].strip()
+    pr_body = pull_request['body'].strip()
 
     pr_filestream = open(pr_template_path)
     pr_template_contents = pr_filestream.read().strip()
