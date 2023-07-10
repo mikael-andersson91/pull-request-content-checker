@@ -19,8 +19,6 @@ def get_pull_request(pull_request_number, github_token):
     print(f'Geting pull request on {r.url}')
     # Throw exception if not 200
     r.raise_for_status()
-    print(r.status_code)
-    print(r.text)
     return json.loads(r.text, strict=False)
 
 
@@ -77,6 +75,7 @@ def main():
     f.close()
 
     pull_request = get_pull_request(event_data["number"], github_token)
+    print(pull_request)
     pr_title = pull_request["title"].strip()
     pr_body = pull_request["description"].strip()
 
