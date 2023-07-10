@@ -39,8 +39,8 @@ This is how to use the optional input.
 
 ```yaml
 with:
-  pull_request_template_path: world
-  anotherInput: optional
+  pull_request_template_path: .github/pull_request_template.md
+  max_pull_request_description_match: 0.5
 ```
 
 ### Using outputs
