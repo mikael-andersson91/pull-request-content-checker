@@ -76,8 +76,9 @@ def main():
 
     pull_request = get_pull_request(event_data["number"], github_token)
     print(pull_request)
-    pr_title = pull_request["title"].strip()
-    pr_body = pull_request["description"].strip()
+    print(list(pull_request.keys()))
+    pr_title = pull_request['title'].strip()
+    pr_body = pull_request['description'].strip()
 
     pr_filestream = open(pr_template_path)
     pr_template_contents = pr_filestream.read().strip()
